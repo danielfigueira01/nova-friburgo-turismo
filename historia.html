@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>História · Nova Friburgo, primeira Igreja Luterana da América Latina</title>
+<meta name="description" content="De 1818 aos dias de hoje: a colônia suíça, a vila de 1820, a chegada dos alemães em 1824 com a primeira comunidade luterana do Brasil, o trem na serra e a cidade de muitas fés.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="sites-incriveis.css">
+<style>
+:root{
+  --papel:#EFE7D6; --superficie:#F7F2E7; --tinta:#2A2118; --suave:#6B5D4C; --noite:#1C1610; --linha:rgba(42,33,24,.16);
+  --musgo:#3F5B3A;
+  --display:'Cormorant Garamond', Georgia, serif; --texto:'Source Sans 3', system-ui, sans-serif; --maquina:'IBM Plex Mono', ui-monospace, monospace;
+  --borda:min(6vw, 88px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--texto);font-size:19px;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:500;margin:0;line-height:1.02;letter-spacing:-.01em}
+.rotulo{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin:0;color:var(--musgo)}
+.ano{font-family:var(--display);font-style:italic;font-size:clamp(64px,9vw,140px);line-height:.85;color:var(--musgo);font-variant-numeric:lining-nums}
+.credito{font-size:13px;color:var(--suave);margin:10px 0 0}
+.fonte{font-size:14px;color:var(--suave);margin:18px 0 0}
+.pular{position:absolute;left:-999px;top:12px;z-index:100;background:#fff;padding:10px 16px}
+.pular:focus{left:12px}
+:focus-visible{outline:3px solid var(--musgo);outline-offset:3px}
+
+.topo{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:12px var(--borda);background:rgba(255,255,255,.97);box-shadow:0 1px 0 rgba(23,32,31,.08);font-family:'Source Sans 3',system-ui,sans-serif}
+.topo .logo{height:36px;width:auto}
+.topo nav{display:flex;gap:26px;font-size:15px;font-weight:600;color:#17201F}
+.topo nav a{text-decoration:none;padding:10px 0}
+.topo nav a:hover,.topo nav a[aria-current]{text-decoration:underline;text-underline-offset:6px}
+.menu-toggle{display:none;border:1px solid rgba(23,32,31,.14);background:#fff;padding:9px 16px;font:inherit;font-size:14px;font-weight:600;border-radius:3px;cursor:pointer}
+
+/* 1. abertura — a travessia */
+.abertura{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,5vw,80px);align-items:center;padding:clamp(48px,7vw,104px) var(--borda)}
+.abertura h1{font-size:clamp(52px,7vw,112px)}
+.abertura .lede{font-size:21px;max-width:30ch;margin:28px 0 0;color:var(--suave)}
+.abertura figure{margin:0}
+.abertura img{width:100%;border:10px solid var(--superficie);box-shadow:0 30px 60px -36px rgba(28,22,16,.55)}
+
+/* 2. 1818 – 1820 */
+.capitulo{padding:clamp(72px,10vw,140px) var(--borda);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(32px,6vw,96px);align-items:start}
+.capitulo .texto p{max-width:58ch}
+.capitulo h2{font-size:clamp(38px,4.6vw,68px);margin:12px 0 22px}
+.marco{border-left:2px solid var(--musgo);padding:6px 0 6px 18px;margin:26px 0;font-size:17px}
+.marco strong{display:block;font-family:var(--display);font-size:28px;font-weight:600;line-height:1.1}
+.vila{position:relative;overflow:hidden;border-radius:2px}
+.vila img{width:100%;transform-origin:65% 45%}
+.nota-honesta{font-size:16px;background:var(--superficie);padding:18px 20px;border-radius:2px;margin-top:26px;max-width:58ch}
+
+/* 3. PICO — o registro de 1824 */
+.registro{background:var(--noite);color:#F3EADB}
+.registro .fx-palco{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(28px,5vw,80px);align-items:center;padding:0 var(--borda)}
+.livro{position:relative;background:#F4ECDA;color:#2A2118;padding:clamp(28px,3.6vw,52px) clamp(24px,3.4vw,48px);border-radius:2px;box-shadow:0 40px 80px -30px rgba(0,0,0,.7);background-image:repeating-linear-gradient(180deg,transparent 0 37px,rgba(63,91,58,.18) 37px 38px);min-height:min(68vh,560px)}
+.livro::before{content:'';position:absolute;top:0;bottom:0;left:clamp(16px,2.4vw,34px);border-left:1px solid rgba(160,40,40,.35)}
+.livro .cab{font-family:var(--maquina);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#6B5D4C;margin:0 0 22px;padding-left:12px}
+.escrita{font-family:var(--maquina);font-size:clamp(15px,1.35vw,19px);line-height:38px;margin:0;padding-left:12px;min-height:38px;white-space:pre-wrap}
+.escrita.forte{font-weight:500}
+.selo{position:absolute;right:clamp(18px,3vw,40px);bottom:clamp(18px,3vw,36px);width:118px;height:118px;border-radius:50%;border:3px double #8E2B24;color:#8E2B24;display:grid;place-items:center;text-align:center;font-family:var(--display);font-size:16px;line-height:1.05;transform:rotate(-12deg);opacity:0}
+.selo b{display:block;font-size:34px;font-weight:600}
+.pico-titulo .rotulo{color:#B9C9A6}
+.pico-titulo h2{font-size:clamp(44px,5.6vw,92px);margin:16px 0 22px}
+.pico-titulo p{color:rgba(243,234,219,.86);max-width:42ch;margin:0}
+.pico-titulo .fonte{color:rgba(243,234,219,.7)}
+
+/* 4. o trem sobe a serra */
+.trem{background:#2E271F;color:#F3EADB}
+.trem .fx-palco{flex-direction:column;align-items:stretch;justify-content:center;gap:28px}
+.trem-cabeca{padding:0 var(--borda);display:flex;justify-content:space-between;align-items:end;gap:32px;flex-wrap:wrap}
+.trem-cabeca h2{font-size:clamp(38px,4.6vw,68px)}
+.trem-cabeca p{max-width:46ch;margin:0;color:rgba(243,234,219,.85)}
+.trem [data-fx="trilho"]{gap:28px;padding:0 var(--borda)}
+.quadro{flex:0 0 clamp(300px,54vw,820px);margin:0}
+.quadro img{width:100%;aspect-ratio:3/2;max-height:56vh;object-fit:cover;filter:sepia(.2)}
+.quadro figcaption{font-size:14px;color:rgba(243,234,219,.75);margin-top:10px}
+.quadro.cartao{flex-basis:clamp(260px,26vw,380px);background:#F4ECDA;color:#2A2118;padding:32px;display:flex;flex-direction:column;justify-content:flex-end}
+.quadro.cartao strong{font-family:var(--display);font-size:clamp(40px,4vw,60px);font-weight:600;line-height:1}
+
+/* 5. muitas fés */
+.fes{padding:clamp(72px,10vw,140px) var(--borda)}
+.fes-cabeca{max-width:760px;margin-bottom:48px}
+.fes-cabeca h2{font-size:clamp(38px,4.6vw,68px);margin-top:12px}
+.grade-fes{display:grid;grid-template-columns:1.2fr 1fr 1fr;grid-template-rows:auto auto;gap:18px}
+.fe{background:var(--superficie);border-radius:2px;overflow:hidden;display:flex;flex-direction:column}
+.fe img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.fe div{padding:22px 24px 26px}
+.fe h3{font-size:30px;margin-bottom:8px}
+.fe p{margin:0;font-size:16px;color:var(--suave)}
+.fe.alta{grid-row:span 2}
+.fe.alta img{aspect-ratio:auto;flex:1;min-height:320px}
+.fe.marco-fe{background:var(--musgo);color:#EFE7D6;justify-content:flex-end}
+.fe.marco-fe p{color:rgba(239,231,214,.85)}
+.fe.marco-fe .ano{color:#EFE7D6;font-size:72px;padding:24px 24px 0}
+
+/* 6. fechamento */
+.fecho{padding:clamp(72px,10vw,140px) var(--borda);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:center}
+.fecho h2{font-size:clamp(42px,5.4vw,84px)}
+.fecho p{max-width:44ch}
+.botao{display:inline-flex;align-items:center;gap:12px;background:var(--musgo);color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:15px 26px;border-radius:2px;margin-top:18px}
+.botao:hover{background:#2D4429}
+.fecho img{width:100%;border:10px solid var(--superficie)}
+
+.rodape{background:var(--noite);color:rgba(243,234,219,.85);padding:48px var(--borda);font-size:14px}
+.rodape img{height:38px;width:auto;margin-bottom:18px}
+.rodape a{color:#fff}
+.rodape summary{cursor:pointer;font-weight:700;margin:20px 0 8px}
+.rodape ul{margin:0;padding-left:18px}
+.rodape li{margin:4px 0}
+
+@media (max-width:900px){
+  .menu-toggle{display:inline-block}
+  .topo nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:#fff;padding:8px var(--borda) 18px;box-shadow:0 12px 24px rgba(0,0,0,.08)}
+  .topo nav.aberto{display:flex}
+  .abertura,.capitulo,.fecho{grid-template-columns:1fr}
+  .registro .fx-palco{grid-template-columns:1fr;align-content:center;gap:22px;padding-top:24px;padding-bottom:24px}
+  .livro{min-height:0;padding:22px 18px 70px}
+  .escrita{font-size:13.5px;line-height:30px}
+  .livro{background-image:repeating-linear-gradient(180deg,transparent 0 29px,rgba(63,91,58,.18) 29px 30px)}
+  .selo{width:84px;height:84px;font-size:12px}.selo b{font-size:24px}
+  .pico-titulo h2{font-size:38px;margin:10px 0 12px}
+  .pico-titulo p{font-size:16px}
+  .grade-fes{grid-template-columns:1fr}
+  .fe.alta{grid-row:auto}
+}
+.fx-reduzido .selo{opacity:1}
+</style>
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="topo">
+  <a href="index.html" aria-label="Nova Friburgo Turismo — início"><img class="logo" src="img/logo-preto.png" alt="Prefeitura de Nova Friburgo · Secretaria de Turismo" width="917" height="223"></a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  <nav id="nav" aria-label="Navegação principal">
+    <a href="index.html#destaques">Descubra</a>
+    <a href="circuitos.html">Circuitos</a>
+    <a href="historia.html" aria-current="page">História</a>
+    <a href="index.html#catalogo">Onde comer e ficar</a>
+    <a href="index.html#eventos">Agenda</a>
+    <a href="index.html#distritos">Destinos</a>
+  </nav>
+</header>
+
+<main id="conteudo">
+
+<!-- 1. ABERTURA -->
+<section class="abertura" data-fx-fundo="#EFE7D6" data-fx-tinta="#2A2118" aria-labelledby="titulo">
+  <div>
+    <p class="rotulo" data-fx="surgir">A história de Nova Friburgo</p>
+    <h1 id="titulo" data-fx="palavras" data-fx-duracao="1100" style="margin-top:18px">Uma cidade que começou numa travessia.</h1>
+    <p class="lede" data-fx="subir" data-fx-atraso="300">Suíços, alemães e muitos outros cruzaram o oceano para recomeçar na serra. Daqui saiu a primeira comunidade luterana do Brasil.</p>
+  </div>
+  <figure data-fx="direita" data-fx-atraso="150">
+    <img src="img/h/schouman1819.webp" alt="Aquarela de 1819: colonos suíços acampados à beira do rio, com barcos ao fundo, antes de partir para o Brasil" width="2048" height="1373">
+    <figcaption class="credito">Colonos suíços no acampamento de Mijl, Holanda, antes da partida para Nova Friburgo. Aquarela de Isaak Schouman, 1819. Domínio público.</figcaption>
+  </figure>
+</section>
+
+<!-- 2. 1818–1820 -->
+<section class="capitulo" aria-labelledby="titulo-1818">
+  <div class="texto">
+    <p class="ano" data-fx="esquerda">1818</p>
+    <h2 id="titulo-1818" data-fx="subir">Uma colônia criada por decreto</h2>
+    <p data-fx="subir" data-fx-atraso="100">Em 16 de maio de 1818, Dom João VI assinou o decreto que autorizava a instalação de famílias suíças do cantão de Fribourg na Fazenda do Morro Queimado. A cidade existiu no papel antes de existir no chão.</p>
+    <div class="marco" data-fx="subir" data-fx-atraso="160"><strong>15 de novembro de 1819</strong>Chegada dos colonos suíços ao Morro Queimado.</div>
+    <div class="marco" data-fx="subir" data-fx-atraso="220"><strong>3 de janeiro de 1820</strong>Nova Friburgo recebe o predicado de vila e se separa das terras de Cantagalo.</div>
+    <p class="nota-honesta" data-fx="subir" data-fx-atraso="260">A serra não estava vazia: pesquisas recentes mostram que indígenas, negros escravizados e roceiros pobres já viviam na região do Morro Queimado antes de 1819.</p>
+    <p class="fonte">Fontes: Prefeitura de Nova Friburgo; Revista GeoUERJ; Revista Cordis (PUC-SP, 2026).</p>
+  </div>
+  <figure style="margin:0" data-fx="crescer">
+    <div class="vila"><img data-fx-paralaxe="0.06" src="img/h/steinmann1839.webp" alt="Gravura colorida da vila de Nova Friburgo por volta de 1839: casas brancas no vale, montanhas recortadas ao fundo" width="2000" height="1294" loading="lazy"></div>
+    <figcaption class="credito">Nova Friburgo por volta de 1839. Gravura de Friedrich Salathé a partir de Johann Jacob Steinmann. Domínio público.</figcaption>
+  </figure>
+</section>
+
+<!-- 3. PICO — 3 de maio de 1824 -->
+<section class="registro" id="registro" data-fx-fixa data-fx-altura="4.5" data-fx-fundo="#1C1610" data-fx-tinta="#F3EADB" aria-labelledby="titulo-1824">
+  <div class="fx-palco">
+    <div class="livro" aria-hidden="true">
+      <p class="cab">Livro de registros · Nova Friburgo</p>
+      <p class="escrita" data-de="0.04" data-ate="0.24">3 de maio de 1824.</p>
+      <p class="escrita" data-de="0.24" data-ate="0.46">Chegam à vila os imigrantes alemães evangélicos.</p>
+      <p class="escrita" data-de="0.46" data-ate="0.62">Com eles, o pastor Friedrich Oswald Sauerbronn.</p>
+      <p class="escrita forte" data-de="0.62" data-ate="0.8">Começa a primeira comunidade luterana do Brasil.</p>
+      <div class="selo" data-fx-escala="1.8,1" data-fx-opacidade="0,1" data-fx-faixa="0.82,0.9"><span><b>1824</b>Nova<br>Friburgo</span></div>
+    </div>
+    <div class="pico-titulo">
+      <p class="rotulo" data-fx-opacidade="0,1" data-fx-faixa="0.02,0.12">3 de maio de 1824</p>
+      <h2 id="titulo-1824" data-fx-opacidade="0.15,1" data-fx-y="30,0" data-fx-faixa="0.62,0.86">Primeira Igreja Luterana da América&nbsp;Latina.</h2>
+      <p data-fx-opacidade="0,1" data-fx-faixa="0.8,0.94">É a comunidade mais antiga da Igreja Evangélica de Confissão Luterana no Brasil. O primeiro ofício religioso foi triste: o sepultamento do filho do pastor Sauerbronn, no mesmo 3 de maio.</p>
+      <p class="fonte" data-fx-opacidade="0,1" data-fx-faixa="0.86,0.96">Fontes: Prefeitura de Nova Friburgo (2022); IECLB, Carta à Nação Brasileira (2024).</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4. O TREM SOBE A SERRA -->
+<section class="trem" data-fx-fixa data-fx-altura="2.6" data-fx-fundo="#2E271F" data-fx-tinta="#F3EADB" aria-labelledby="titulo-trem">
+  <div class="fx-palco">
+    <div class="trem-cabeca">
+      <div><p class="ano" style="color:#B9C9A6">1870</p><h2 id="titulo-trem">O trem sobe a serra</h2></div>
+      <p>A Estrada de Ferro Cantagalo, primeira ferrovia de montanha do Brasil, ligou Niterói a Nova Friburgo e começou a operar em 1873. Com o trem vieram comércio, hotéis e escolas.</p>
+    </div>
+    <div data-fx="trilho">
+      <figure class="quadro"><img src="img/h/estacao1875.webp" alt="Fotografia de 1875: a estação de Nova Friburgo, prédio de dois andares em terreno aberto" loading="lazy"><figcaption>Estação de Nova Friburgo, c. 1875 · Henschel &amp; Benque, Biblioteca Nacional. Domínio público.</figcaption></figure>
+      <figure class="quadro"><img src="img/h/rio-grande1875.webp" alt="Fotografia de 1875: o vale do Rio Grande com a estação e o rio entre montanhas" loading="lazy"><figcaption>Vale e estação no Rio Grande, hoje Riograndina, c. 1875 · Henschel &amp; Benque, Biblioteca Nacional. Domínio público.</figcaption></figure>
+      <div class="quadro cartao"><strong>1876</strong><p style="margin:12px 0 0">A estação do Rio Grande é inaugurada e impulsiona o povoado que viria a se chamar Riograndina.</p><p class="fonte" style="margin-top:10px">Fonte: História de Nova Friburgo, Janaína Botelho.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. A CIDADE DE MUITAS FÉS -->
+<section class="fes" data-fx-fundo="#EFE7D6" data-fx-tinta="#2A2118" aria-labelledby="titulo-fes">
+  <div class="fes-cabeca">
+    <p class="rotulo" data-fx="surgir">Hoje</p>
+    <h2 id="titulo-fes" data-fx="subir">A cidade de muitas fés</h2>
+  </div>
+  <div class="grade-fes">
+    <article class="fe alta" data-fx="subir"><img src="img/h/catedral.webp" alt="Catedral de São João Batista, de fachada branca e torre única, no Centro" loading="lazy"><div><h3>Catedral de São João Batista</h3><p>Dedicada a São João Batista, que dá nome à vila desde a fundação: Vila de São João Batista de Nova Friburgo. Fica no coração do Centro.</p><p class="credito">Foto: Marinelson Almeida, CC BY 2.0</p></div></article>
+    <article class="fe marco-fe" data-fx="subir" data-fx-atraso="100"><p class="ano">1824</p><div><h3>Comunidade Luterana</h3><p>A primeira comunidade luterana formalmente criada no Brasil, fundada pelos imigrantes alemães.</p></div></article>
+    <article class="fe" data-fx="subir" data-fx-atraso="180"><img src="img/h/anchieta.webp" alt="Fachada do Colégio Anchieta com jardim à frente" loading="lazy"><div><h3>Colégio Anchieta</h3><p>Escola jesuíta que nasceu no impulso da ferrovia e virou símbolo da cidade.</p><p class="credito">Foto: João Luccas Oliveira</p></div></article>
+    <article class="fe" data-fx="subir" data-fx-atraso="120"><div><h3>Arautos do Evangelho</h3><p>Associação católica com sede no Parque São Clemente. A capela de Nossa Senhora de Fátima, apelidada de "castelo", é um dos marcos recentes da paisagem.</p></div></article>
+    <article class="fe" data-fx="subir" data-fx-atraso="200"><div><h3>E muitas outras</h3><p>Igrejas, templos e centros religiosos de várias tradições, que contam como Nova Friburgo foi recebendo gente de muitos lugares.</p></div></article>
+  </div>
+</section>
+
+<!-- 6. FECHAMENTO -->
+<section class="fecho" aria-labelledby="titulo-fecho">
+  <div>
+    <h2 id="titulo-fecho" data-fx="subir">Venha caminhar por essa história.</h2>
+    <p data-fx="subir" data-fx-atraso="120">O Walking Tour passa pela Praça Getúlio Vargas, pela Catedral, pela Igreja Luterana e pelo Colégio Anchieta. Em Fribourg, na Suíça, uma praça leva o nome de Nova Friburgo e guarda a memória de quem partiu.</p>
+    <a class="botao" href="circuitos.html#walking-tour" data-fx="subir" data-fx-atraso="220">Abrir o Walking Tour</a>
+  </div>
+  <figure style="margin:0" data-fx="esquerda">
+    <img src="img/h/place-fribourg.webp" alt="Placa da Place de Nova-Friburgo, em Fribourg, Suíça, em memória dos que partiram para o Brasil" loading="lazy">
+    <figcaption class="credito">Place de Nova-Friburgo, Fribourg, Suíça · Foto: Martin Thurnherr, CC BY-SA 4.0</figcaption>
+  </figure>
+</section>
+
+</main>
+
+<footer class="rodape">
+  <img src="img/logo-branco.png" alt="Prefeitura de Nova Friburgo · Secretaria de Turismo" width="917" height="223" loading="lazy">
+  <p style="margin:0">Secretaria Municipal de Turismo · Prefeitura de Nova Friburgo</p>
+  <details>
+    <summary>Fontes e créditos</summary>
+    <ul>
+      <li>Decreto de 16/05/1818: Prefeitura de Nova Friburgo. Chegada em 15/11/1819 e presença anterior de indígenas, escravizados e roceiros: Revista Cordis, PUC-SP, n. 39, 2026. Vila em 03/01/1820: Revista GeoUERJ.</li>
+      <li>3/05/1824, pastor Sauerbronn e primeiro ofício: IECLB, Carta à Nação Brasileira, 2024. "Primeira Igreja Luterana da América Latina": Prefeitura de Nova Friburgo, 21/06/2022.</li>
+      <li>Estrada de Ferro Cantagalo (1873), primeira ferrovia de montanha do Brasil. Estação do Rio Grande (1876): Janaína Botelho, historianovafriburgo.com.br.</li>
+      <li>Arautos do Evangelho: arautos.org; A Voz da Serra.</li>
+      <li>Imagens: Isaak Schouman, 1819 (domínio público); Friedrich Salathé a partir de J. J. Steinmann, c. 1839 (domínio público); Henschel &amp; Benque, c. 1875, Biblioteca Nacional (domínio público); Catedral: Marinelson Almeida, CC BY 2.0; Colégio Anchieta: João Luccas Oliveira; Place de Nova-Friburgo: Martin Thurnherr, CC BY-SA 4.0. Imagens do Wikimedia Commons.</li>
+    </ul>
+  </details>
+</footer>
+
+<script src="sites-incriveis.js" defer></script>
+<script>
+(function(){
+  var b=document.querySelector('.menu-toggle'), n=document.getElementById('nav');
+  b.addEventListener('click',function(){ var a=n.classList.toggle('aberto'); b.setAttribute('aria-expanded',a?'true':'false'); });
+})();
+/* Movimento-assinatura "Escrever o registro": a rolagem escreve, linha por linha,
+   a página do livro de 3 de maio de 1824; no fim, o selo é carimbado. */
+(function(){
+  var secao=document.getElementById('registro');
+  var linhas=[].slice.call(secao.querySelectorAll('.escrita'));
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; // texto completo já está no HTML
+  linhas.forEach(function(l){ l.dataset.texto=l.textContent; l.textContent=''; });
+  var ultimo=-1;
+  function quadro(){
+    var p=parseFloat(getComputedStyle(secao).getPropertyValue('--progresso'))||0;
+    if(p!==ultimo){
+      ultimo=p;
+      linhas.forEach(function(l){
+        var de=+l.dataset.de, ate=+l.dataset.ate, t=l.dataset.texto;
+        var k=p<=de?0:p>=ate?1:(p-de)/(ate-de);
+        var n=Math.round(t.length*k);
+        l.textContent=t.slice(0,n)+(k>0&&k<1?'▍':'');
+      });
+    }
+    requestAnimationFrame(quadro);
+  }
+  requestAnimationFrame(quadro);
+})();
+</script>
+</body>
+</html>

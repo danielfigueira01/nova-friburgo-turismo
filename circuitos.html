@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Circuitos turísticos · Nova Friburgo</title>
+<meta name="description" content="Os circuitos turísticos oficiais de Nova Friburgo: São Pedro da Serra e Lumiar, Amparo, Terê-Fri, Três Picos, Flores, Walking Tour, Tour Cervejeiro e Rota do Vinho.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="sites-incriveis.css">
+<style>
+:root{
+  --neve:#F6F4EF; --papel:#FFFFFF; --tinta:#17201F; --suave:#5C6661; --noite:#0F1714; --linha:rgba(23,32,31,.14);
+  --vermelho:#C8102E; --vinho:#5B1A2A;
+  --display:'DM Serif Display', Georgia, serif; --texto:'Manrope', system-ui, sans-serif;
+  --borda:min(6vw, 88px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--neve);color:var(--tinta);font-family:var(--texto);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.05}
+.rotulo{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0}
+.credito{font-size:13px;color:var(--suave);margin:10px 0 0}
+.pular{position:absolute;left:-999px;top:12px;z-index:100;background:var(--papel);padding:10px 16px}
+.pular:focus{left:12px}
+:focus-visible{outline:3px solid var(--vermelho);outline-offset:3px}
+
+/* cabeçalho (mesmo do portal, sempre compacto) */
+.topo{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:12px var(--borda);background:rgba(255,255,255,.97);box-shadow:0 1px 0 rgba(23,32,31,.08)}
+.topo .logo{height:36px;width:auto}
+.topo nav{display:flex;gap:26px;font-size:15px;font-weight:600}
+.topo nav a{text-decoration:none;padding:10px 0}
+.topo nav a:hover,.topo nav a[aria-current]{text-decoration:underline;text-underline-offset:6px}
+.menu-toggle{display:none;border:1px solid var(--linha);background:#fff;padding:9px 16px;font:inherit;font-size:14px;font-weight:600;border-radius:3px;cursor:pointer}
+
+/* abertura */
+.abre{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(32px,5vw,80px);align-items:end;padding:clamp(56px,9vw,120px) var(--borda) clamp(40px,6vw,72px)}
+.abre h1{font-size:clamp(46px,6.4vw,96px);letter-spacing:-.02em;margin:18px 0 0}
+.abre h1 em{color:var(--vermelho)}
+.abre p{color:var(--suave);max-width:520px;margin:0}
+.indice{list-style:none;margin:0;padding:0 var(--borda) clamp(40px,6vw,64px);display:flex;flex-wrap:wrap;gap:10px}
+.indice a{display:inline-flex;gap:10px;align-items:baseline;text-decoration:none;border:1px solid var(--linha);background:#fff;border-radius:40px;padding:10px 18px;font-size:15px;font-weight:600}
+.indice a span{font-size:12px;color:var(--vermelho);font-variant-numeric:tabular-nums}
+.indice a:hover{border-color:var(--tinta)}
+
+/* circuitos */
+.circuitos{padding:0 var(--borda) clamp(64px,9vw,120px)}
+.circuito{border-top:1px solid var(--linha);scroll-margin-top:72px}
+.circuito:last-child{border-bottom:1px solid var(--linha)}
+.circuito summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:64px minmax(0,1fr) auto 160px;gap:24px;align-items:center;padding:22px 0}
+.circuito summary::-webkit-details-marker{display:none}
+.circuito .num{font-size:14px;font-weight:700;color:var(--suave);font-variant-numeric:tabular-nums}
+.circuito h2{font-size:clamp(28px,3.2vw,46px);transition:color .3s}
+.circuito .linha-curta{display:block;font-family:var(--texto);font-size:15px;color:var(--suave);margin-top:8px;line-height:1.4}
+.circuito .abrir{font-size:14px;font-weight:700;white-space:nowrap;display:inline-flex;align-items:center;gap:10px}
+.circuito .abrir::after{content:'';width:22px;height:22px;border:1.5px solid currentColor;border-radius:50%;background:linear-gradient(currentColor,currentColor) center/10px 1.5px no-repeat,linear-gradient(currentColor,currentColor) center/1.5px 10px no-repeat;transition:transform .4s}
+.circuito[open] .abrir::after{transform:rotate(45deg)}
+.circuito .abrir .fechar{display:none}
+.circuito[open] .abrir .ver{display:none}
+.circuito[open] .abrir .fechar{display:inline}
+.circuito .mini{width:160px;height:100px;object-fit:cover;border-radius:3px;transition:opacity .3s}
+.circuito[open] .mini{opacity:0}
+.circuito summary:hover h2{color:var(--vermelho)}
+
+/* o mapa que se desdobra (movimento-assinatura) */
+.mapa{perspective:1600px;padding:4px 0 40px}
+.mapa-folhas{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:0;background:#fff;border:1px solid var(--linha);border-radius:4px;overflow:hidden;box-shadow:0 24px 60px -30px rgba(15,23,20,.35)}
+.folha{transform-origin:top center;backface-visibility:hidden}
+.folha-foto{position:relative;min-height:420px;background:var(--noite)}
+.folha-foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.folha-foto figcaption{position:absolute;left:16px;bottom:12px;right:16px;font-size:12px;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+.folha-texto{padding:clamp(24px,3vw,44px);display:flex;flex-direction:column;gap:20px;border-left:1px dashed var(--linha)}
+.folha-texto p{margin:0;font-size:17px}
+.rota{list-style:none;margin:0;padding:0 0 0 6px;position:relative}
+.rota::before{content:'';position:absolute;left:17px;top:14px;bottom:14px;border-left:2px dashed var(--vermelho);opacity:.55}
+.rota li{position:relative;display:grid;grid-template-columns:24px 1fr;gap:16px;align-items:start;padding:7px 0;font-size:16px;font-weight:600}
+.rota li::before{counter-increment:parada;content:counter(parada);position:relative;z-index:1;width:24px;height:24px;border-radius:50%;background:var(--vermelho);color:#fff;font-size:12px;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.rota{counter-reset:parada}
+.rota li small{display:block;font-weight:400;color:var(--suave);font-size:14px}
+.botoes{display:flex;flex-wrap:wrap;gap:12px;margin-top:auto}
+.botao{display:inline-flex;align-items:center;gap:10px;background:var(--vermelho);color:#fff;text-decoration:none;font-size:15px;font-weight:700;padding:13px 22px;border-radius:3px}
+.botao:hover{background:#9E0B23}
+.botao.claro{background:transparent;color:var(--tinta);border:1px solid var(--linha)}
+.nota{font-size:14px;color:var(--suave)}
+.sem-foto{display:flex;align-items:flex-end;padding:32px;background:var(--vinho);color:#F6E9EC;font-family:var(--display);font-size:clamp(44px,5vw,72px);line-height:.95;background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 2px,transparent 2px 22px)}
+.sem-foto.mini{font-size:20px;padding:12px;align-items:center;justify-content:center;text-align:center}
+
+/* desdobrar: as duas folhas abrem como um mapa de papel */
+.circuito[open] .folha-foto{animation:desdobra .75s cubic-bezier(.22,1,.36,1) both}
+.circuito[open] .folha-texto{animation:desdobra .75s cubic-bezier(.22,1,.36,1) .14s both}
+@keyframes desdobra{from{transform:rotateX(-82deg);opacity:0}to{transform:none;opacity:1}}
+
+/* natureza perto do centro */
+.perto{padding:clamp(64px,9vw,120px) var(--borda);background:var(--noite);color:#F6F4EF}
+.perto-cabeca{display:flex;justify-content:space-between;align-items:end;gap:32px;flex-wrap:wrap;margin-bottom:40px}
+.perto h2{font-size:clamp(36px,4.6vw,68px);max-width:12ch}
+.perto-cabeca p{max-width:420px;color:rgba(246,244,239,.8);margin:0}
+.grade-perto{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.lugar{position:relative;min-height:300px;border-radius:4px;overflow:hidden;background:#1d2622;text-decoration:none;color:#fff;display:flex;align-items:flex-end;isolation:isolate}
+.lugar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.2s cubic-bezier(.22,1,.36,1)}
+.lugar::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.78))}
+.lugar:hover img{transform:scale(1.06)}
+.lugar div{padding:20px}
+.lugar h3{font-size:26px}
+.lugar small{display:block;font-size:13px;opacity:.85;margin-top:6px}
+.lugar.largo{grid-column:span 2}
+.lugar.texto{background:#24302b;align-items:center}
+.lugar.texto::after{display:none}
+
+/* informações úteis */
+.uteis{padding:clamp(64px,9vw,120px) var(--borda);display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,4vw,64px)}
+.uteis h2{font-size:clamp(34px,4vw,56px)}
+.uteis h3{font-family:var(--texto);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 14px;color:var(--vermelho)}
+.tabela{width:100%;border-collapse:collapse;font-size:15px}
+.tabela td{padding:9px 0;border-bottom:1px solid var(--linha)}
+.tabela td:last-child{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:16px}
+.uteis .aviso{margin-top:22px;padding:16px 18px;background:#fff;border-left:3px solid var(--vermelho);font-size:15px}
+
+.rodape{background:var(--noite);color:rgba(246,244,239,.85);padding:48px var(--borda);font-size:14px}
+.rodape img{height:38px;width:auto;margin-bottom:18px}
+.rodape a{color:#fff}
+.rodape summary{cursor:pointer;font-weight:700;margin:20px 0 8px}
+.rodape ul{margin:0;padding-left:18px;columns:2;column-gap:40px}
+.rodape li{margin:4px 0;break-inside:avoid}
+
+@media (max-width:900px){
+  .menu-toggle{display:inline-block}
+  .topo nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:#fff;padding:8px var(--borda) 18px;box-shadow:0 12px 24px rgba(0,0,0,.08)}
+  .topo nav.aberto{display:flex}
+  .abre{grid-template-columns:1fr}
+  .circuito summary{grid-template-columns:36px minmax(0,1fr) 84px;gap:14px}
+  .circuito .abrir{display:none}
+  .circuito .mini{width:84px;height:64px}
+  .mapa-folhas{grid-template-columns:1fr}
+  .folha-foto{min-height:240px}
+  .folha-texto{border-left:0;border-top:1px dashed var(--linha)}
+  .grade-perto{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lugar{min-height:220px}
+  .uteis{grid-template-columns:1fr}
+  .rodape ul{columns:1}
+}
+@media (max-width:520px){ .grade-perto{grid-template-columns:1fr} .lugar.largo{grid-column:auto} }
+@media (prefers-reduced-motion:reduce){ .circuito[open] .folha-foto,.circuito[open] .folha-texto{animation:none} }
+
+.rota li{display:block;padding:0;font-weight:400}
+.rota li::before{position:absolute;left:0;top:13px}
+.parada{display:block;width:100%;text-align:left;background:none;border:0;padding:10px 8px 10px 40px;border-radius:3px;font:inherit;font-size:16px;font-weight:600;color:inherit;cursor:pointer;position:relative}
+.parada small{display:block;font-weight:400;color:var(--suave);font-size:14px}
+.parada::after{content:'';position:absolute;right:8px;top:50%;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-70%) rotate(45deg);opacity:.45;transition:transform .3s}
+.parada:hover{background:rgba(200,16,46,.06)}
+.parada[aria-expanded=true]{background:rgba(200,16,46,.08);color:var(--vermelho)}
+.parada[aria-expanded=true]::after{transform:translateY(-30%) rotate(-135deg)}
+.det{margin:4px 0 12px 40px;padding:14px 16px;background:var(--neve);border-radius:3px;font-size:15px}
+.det p{margin:0 0 8px;font-size:15px}
+.det .onde b{color:var(--tinta)}
+.det-foto{display:none;width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:2px;margin-bottom:12px}
+.rota-link{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;color:var(--vermelho);text-decoration:none;border:1.5px solid var(--vermelho);padding:8px 14px;border-radius:3px}
+.rota-link:hover{background:var(--vermelho);color:#fff}
+.dica{font-size:13px;color:var(--suave);margin:0}
+.folha-foto img{transition:opacity .35s ease}
+.folha-foto.trocando img{opacity:.15}
+.folha-foto .sem-foto-parada{position:absolute;inset:0;z-index:1;display:none;align-items:flex-end;padding:32px;background:#24302b;color:#F6F4EF;font-family:var(--display);font-size:clamp(32px,3.4vw,52px);line-height:1}
+.folha-foto.sem-img .sem-foto-parada{display:flex}
+@media (max-width:900px){ .det-foto{display:block} .det{margin-left:0} }
+</style>
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="topo">
+  <a href="index.html" aria-label="Nova Friburgo Turismo — início"><img class="logo" src="img/logo-preto.png" alt="Prefeitura de Nova Friburgo · Secretaria de Turismo" width="917" height="223"></a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  <nav id="nav" aria-label="Navegação principal">
+    <a href="index.html#destaques">Descubra</a>
+    <a href="circuitos.html" aria-current="page">Circuitos</a>
+    <a href="historia.html">História</a>
+    <a href="index.html#catalogo">Onde comer e ficar</a>
+    <a href="index.html#eventos">Agenda</a>
+    <a href="index.html#distritos">Destinos</a>
+  </nav>
+</header>
+
+<main id="conteudo">
+
+<section class="abre" data-fx-fundo="#F6F4EF" data-fx-tinta="#17201F" aria-labelledby="titulo">
+  <div>
+    <p class="rotulo" data-fx="surgir" style="color:var(--vermelho)">Circuitos turísticos oficiais</p>
+    <h1 id="titulo" data-fx="palavras" data-fx-duracao="900">Oito caminhos para <em>conhecer</em> Nova Friburgo.</h1>
+  </div>
+  <p data-fx="subir" data-fx-atraso="200">Vilas de montanha, roça, flores, cerveja, vinho e o Centro histórico a pé. Escolha um circuito e abra o mapa: as paradas aparecem na ordem do caminho, com um atalho para traçar a rota no seu celular.</p>
+</section>
+
+<ol class="indice" aria-label="Lista de circuitos">
+  <li><a href="#sao-pedro-lumiar"><span>01</span>São Pedro da Serra e Lumiar</a></li>
+  <li><a href="#amparo"><span>02</span>Amparo</a></li>
+  <li><a href="#tere-fri"><span>03</span>Terê-Fri</a></li>
+  <li><a href="#tres-picos"><span>04</span>Três Picos</a></li>
+  <li><a href="#flores"><span>05</span>Flores</a></li>
+  <li><a href="#walking-tour"><span>06</span>Walking Tour</a></li>
+  <li><a href="#cervejeiro"><span>07</span>Tour Cervejeiro</a></li>
+  <li><a href="#vinho"><span>08</span>Rota do Vinho</a></li>
+</ol>
+
+<div class="circuitos" data-fx-fundo="#F6F4EF" data-fx-tinta="#17201F">
+
+  <details class="circuito" id="sao-pedro-lumiar">
+    <summary><span class="num">01</span><span><h2>São Pedro da Serra e Lumiar</h2><span class="linha-curta">Duas vilas de montanha, rios cristalinos e cachoeiras</span></span><span class="abrir"><span class="ver">Abrir circuito</span><span class="fechar">Fechar</span></span><img class="mini" src="img/c/sps-lumiar.webp" alt="" loading="lazy"></summary>
+    <div class="mapa"><div class="mapa-folhas">
+      <figure class="folha folha-foto" style="margin:0"><div class="sem-foto-parada" aria-hidden="true"></div><img src="img/c/sps-lumiar.webp" alt="Lago cercado por casas e pousadas de madeira em São Pedro da Serra, com montanhas ao fundo" loading="lazy"><figcaption>São Pedro da Serra · Foto: João Luccas Oliveira</figcaption></figure>
+      <div class="folha folha-texto">
+        <p>Em São Pedro da Serra, vielas de paralelepípedo, construções charmosas e cafés convidam a ir devagar. Lumiar tem cachoeiras, piscinas naturais e uma vida noturna animada. Nas duas vilas, gastronomia e artesanato local.</p>
+        <ol class="rota">
+          <li><button class="parada" type="button" aria-expanded="false"><span>Poço Belo<small>Boa Esperança</small></span></button><div class="det" hidden><p>Queda d'água no Rio Boa Esperança, à beira da estrada que liga Lumiar a Boa Esperança. A entrada fica escondida na vegetação, perto de um pequeno estacionamento.</p><p class="onde"><b>Onde fica:</b> Estrada Lumiar–Boa Esperança, logo depois do centro de Lumiar.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Po%C3%A7o+Belo%2C+Lumiar%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+          <li><button class="parada" type="button" aria-expanded="false" data-img="img/p/sao-jose.webp" data-alt="Cachoeira São José caindo entre pedras cobertas de musgo" data-cred="Foto: TMbux (CC BY-SA 3.0)"><span>Cachoeira São José<small>Boa Esperança</small></span></button><div class="det" hidden><img class="det-foto" src="img/p/sao-jose.webp" alt="Cachoeira São José caindo entre pedras cobertas de musgo" loading="lazy"><p>Queda de cerca de 15 metros com área de lazer e ambiente familiar.</p><p class="onde"><b>Onde fica:</b> Povoado de Boa Esperança, a uns 5 km do centro de Lumiar, por estrada asfaltada.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Cachoeira+S%C3%A3o+Jos%C3%A9%2C+Boa+Esperan%C3%A7a%2C+Lumiar%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+          <li><button class="parada" type="button" aria-expanded="false" data-img="img/p/encontro-rios.webp" data-alt="Ponte sobre as pedras no Encontro dos Rios, com montanhas ao fundo" data-cred="Ponte dos Alemães · Foto: TMbux (CC BY-SA 3.0)"><span>Encontro dos Rios<small>Lumiar</small></span></button><div class="det" hidden><img class="det-foto" src="img/p/encontro-rios.webp" alt="Ponte sobre as pedras no Encontro dos Rios, com montanhas ao fundo" loading="lazy"><p>Ponto onde o Rio Bonito deságua no Rio Macaé. Tem trechos calmos para banho e corredeiras: é a saída do rafting e da canoagem.</p><p class="onde"><b>Onde fica:</b> A 6 km da praça central de Lumiar. É só seguir as placas.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Encontro+dos+Rios%2C+Lumiar%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+          <li><button class="parada" type="button" aria-expanded="false" data-img="img/c/poco-feio.webp" data-alt="Água corrente entre pedras no Poço Feio" data-cred="Foto: TMbux (CC BY-SA 3.0)"><span>Poço Feio<small>Lumiar</small></span></button><div class="det" hidden><img class="det-foto" src="img/c/poco-feio.webp" alt="Água corrente entre pedras no Poço Feio" loading="lazy"><p>Apesar do nome, é a “praia de Lumiar”: faixa de areia e águas tranquilas, boa para famílias. Fica em área particular, com entrada paga.</p><p class="onde"><b>Onde fica:</b> Na entrada do distrito, no km 22 da estrada Mury–Lumiar, a cerca de 1 km do centro.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Po%C3%A7o+Feio%2C+Lumiar%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+          <li><button class="parada" type="button" aria-expanded="false" data-img="img/p/toca-da-onca.webp" data-alt="Poço de água verde com pedras e mata ao redor na Toca da Onça" data-cred="Foto: TMbux (CC BY-SA 3.0)"><span>Toca da Onça<small>Lumiar</small></span></button><div class="det" hidden><img class="det-foto" src="img/p/toca-da-onca.webp" alt="Poço de água verde com pedras e mata ao redor na Toca da Onça" loading="lazy"><p>Complexo particular com piscinas naturais, área de camping e boia-cross.</p><p class="onde"><b>Onde fica:</b> A 10 km do centro de Lumiar, passando pelo Encontro dos Rios. O último trecho é de terra, com ladeira.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Po%C3%A7o+Toca+da+On%C3%A7a%2C+Lumiar%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+          <li><button class="parada" type="button" aria-expanded="false" data-img="img/p/indiana-jones.webp" data-alt="Queda d&#x27;água dentro de um cânion estreito de pedra" data-cred="Foto: TMbux (CC BY-SA 3.0)"><span>Cachoeira Indiana Jones<small>Boa Esperança</small></span></button><div class="det" hidden><img class="det-foto" src="img/p/indiana-jones.webp" alt="Queda d&#x27;água dentro de um cânion estreito de pedra" loading="lazy"><p>Queda escondida num cânion estreito, com pedras que formam um escorrega natural. O acesso é desafiador.</p><p class="onde"><b>Onde fica:</b> Boa Esperança, Lumiar.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Cachoeira+Indiana+Jones%2C+Lumiar%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+        </ol>
+        <p class="dica">Toque em uma parada para ver a foto, os detalhes e como chegar.</p>
+        <div class="botoes"><a class="botao" href="https://www.google.com/maps/search/?api=1&amp;query=S%C3%A3o+Pedro+da+Serra+Nova+Friburgo+RJ" target="_blank" rel="noopener">Abrir no mapa</a><a class="botao claro" href="index.html#catalogo">Onde ficar e comer</a></div>
+      </div>
+    </div></div>
+  </details>
+
+  <details class="circuito" id="amparo">
+    <summary><span class="num">02</span><span><h2>Amparo de Turismo Rural</h2><span class="linha-curta">Porteiras abertas, queijos, cachaça e colheita de frutas</span></span><span class="abrir"><span class="ver">Abrir circuito</span><span class="fechar">Fechar</span></span><img class="mini" src="img/c/amparo.webp" alt="" loading="lazy"></summary>
+    <div class="mapa"><div class="mapa-folhas">
+      <figure class="folha folha-foto" style="margin:0"><div class="sem-foto-parada" aria-hidden="true"></div><img src="img/c/amparo.webp" alt="Casario colorido da vila de Amparo entre árvores" loading="lazy"><figcaption>Amparo · Foto: João Luccas Oliveira</figcaption></figure>
+      <div class="folha folha-texto">
+        <p>Cada estrada leva a uma propriedade rural que abre a porteira ao visitante. Dá para provar queijos artesanais e cachaça, colher frutas e acompanhar o dia a dia da roça, recebido por quem vive e produz ali.</p>
+        <ol class="rota">
+          <li><button class="parada" type="button" aria-expanded="false" data-img="img/d-amparo.webp" data-alt="Casario colorido da vila de Amparo" data-cred="Foto: João Luccas Oliveira"><span>Vila de Amparo<small>Amparo</small></span></button><div class="det" hidden><img class="det-foto" src="img/d-amparo.webp" alt="Casario colorido da vila de Amparo" loading="lazy"><p>O centro da vila, ponto de partida para as propriedades do circuito.</p><p class="onde"><b>Onde fica:</b> Distrito de Amparo, acesso pela RJ-150.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Amparo%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+          <li><button class="parada" type="button" aria-expanded="false"><span>Propriedades rurais do circuito<small>queijos, cachaça e frutas</small></span></button><div class="det" hidden><p>Sítios que abrem a porteira para visitas: queijos artesanais, cachaça, colheita de frutas e a rotina do campo.</p><p class="onde"><b>Onde fica:</b> A lista das propriedades que recebem visitantes está no Centro de Atendimento ao Turista: (22) 2543-6307.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Amparo%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+        </ol>
+                <p class="dica">Toque em uma parada para ver a foto, os detalhes e como chegar.</p>
+        <div class="botoes"><a class="botao" href="https://www.google.com/maps/search/?api=1&amp;query=Amparo+Nova+Friburgo+RJ" target="_blank" rel="noopener">Abrir no mapa</a></div>
+      </div>
+    </div></div>
+  </details>
+
+  <details class="circuito" id="tere-fri">
+    <summary><span class="num">03</span><span><h2>Terê-Fri</h2><span class="linha-curta">A estrada entre Teresópolis e Nova Friburgo, de queijo em queijo</span></span><span class="abrir"><span class="ver">Abrir circuito</span><span class="fechar">Fechar</span></span><img class="mini" src="img/casa-suica.webp" alt="" loading="lazy"></summary>
+    <div class="mapa"><div class="mapa-folhas">
+      <figure class="folha folha-foto" style="margin:0"><div class="sem-foto-parada" aria-hidden="true"></div><img src="img/casa-suica.webp" alt="Casa em estilo suíço com telhado vermelho e jardim florido" loading="lazy"><figcaption>Casa Suíça · Acervo da Secretaria de Turismo</figcaption></figure>
+      <div class="folha folha-texto">
+        <p>Pela RJ-130, vales profundos e picos acompanham a viagem. No caminho: queijos produzidos na região, vinícolas, cosméticos, restaurantes de pratos típicos e cafés para fechar o dia.</p>
+        <ol class="rota">
+          <li><button class="parada" type="button" aria-expanded="false" data-img="img/casa-suica.webp" data-alt="Casa em estilo suíço com telhado vermelho e jardim florido" data-cred="Acervo da Secretaria de Turismo"><span>Casa Suíça<small>Memorial da Colonização Suíça</small></span></button><div class="det" hidden><img class="det-foto" src="img/casa-suica.webp" alt="Casa em estilo suíço com telhado vermelho e jardim florido" loading="lazy"><p>Reúne o Memorial da Colonização Suíça, o Museu de Taxidermia e o Galpão de Encanto e Arte. No mesmo lugar: jardim, uma pequena fábrica de chocolate e a Queijaria Escola, com queijos, doces, linguiças e geleias.</p><p class="onde"><b>Onde fica:</b> Na estrada Terê-Fri (RJ-130), a pouco mais de 20 km do Centro.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Casa+Su%C3%AD%C3%A7a%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+          <li><button class="parada" type="button" aria-expanded="false" data-img="img/p/jardim-nego.webp" data-alt="Escultura de barro e musgo com rostos e figuras humanas" data-cred="Foto: Priscila Bruder (CC0)"><span>Jardim do Nêgo<small>esculturas de Geraldo Simplício</small></span></button><div class="det" hidden><img class="det-foto" src="img/p/jardim-nego.webp" alt="Escultura de barro e musgo com rostos e figuras humanas" loading="lazy"><p>Ateliê ao ar livre onde o artista Geraldo Simplício, o Nêgo, cria e expõe suas esculturas gigantes de barro e musgo. No fim do passeio há um pequeno museu. A entrada é paga.</p><p class="onde"><b>Onde fica:</b> RJ-130, km 55, a cerca de 17 km do Centro.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Jardim+do+N%C3%AAgo%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+          <li><button class="parada" type="button" aria-expanded="false"><span>Apiário Amigos da Terra e Museu do Mel<small>turismo rural</small></span></button><div class="det" hidden><p>Apiário com loja de produtos do mel e museu sobre as abelhas.</p><p class="onde"><b>Onde fica:</b> A cerca de 20 km do Centro, vizinho da Casa Suíça e do Jardim do Nêgo: dá para visitar os três no mesmo dia.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Api%C3%A1rio+Amigos+da+Terra%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+        </ol>
+        <p class="dica">Toque em uma parada para ver a foto, os detalhes e como chegar.</p>
+        <div class="botoes"><a class="botao" href="https://www.google.com/maps/dir/?api=1&amp;origin=Nova+Friburgo+RJ&amp;destination=Teres%C3%B3polis+RJ" target="_blank" rel="noopener">Abrir no mapa</a></div>
+      </div>
+    </div></div>
+  </details>
+
+  <details class="circuito" id="tres-picos">
+    <summary><span class="num">04</span><span><h2>Três Picos</h2><span class="linha-curta">Trilhas, Mata Atlântica e a mesa farta da roça</span></span><span class="abrir"><span class="ver">Abrir circuito</span><span class="fechar">Fechar</span></span><img class="mini" src="img/c/tres-picos.webp" alt="" loading="lazy"></summary>
+    <div class="mapa"><div class="mapa-folhas">
+      <figure class="folha folha-foto" style="margin:0"><div class="sem-foto-parada" aria-hidden="true"></div><img src="img/c/tres-picos.webp" alt="Os Três Picos e o Capacete sob céu azul, com campos verdes à frente" loading="lazy"><figcaption>Três Picos e Capacete · Foto: Maylle Lo Feudo (CC BY-SA 3.0)</figcaption></figure>
+      <div class="folha folha-texto">
+        <p>Trilhas com vistas abertas para os Três Picos, no meio da Mata Atlântica. Depois da caminhada, frutas, verduras frescas, mel, pães e broa à venda pelo caminho, e pousadas aconchegantes para ficar.</p>
+        <ol class="rota">
+          <li><button class="parada" type="button" aria-expanded="false" data-img="img/p/tres-picos-parque.webp" data-alt="Paredão de granito dos Três Picos entre nuvens" data-cred="Foto: Giovani Sardinha (CC BY-SA 4.0)"><span>Parque Estadual dos Três Picos<small>trilhas e mirantes</small></span></button><div class="det" hidden><img class="det-foto" src="img/p/tres-picos-parque.webp" alt="Paredão de granito dos Três Picos entre nuvens" loading="lazy"><p>Trilhas no meio da Mata Atlântica, com vistas para os Três Picos. Trilhas de montanha pedem preparo: confira o tempo e as orientações do parque antes de sair.</p><p class="onde"><b>Onde fica:</b> Região de Campo do Coelho, em Nova Friburgo.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Parque+Estadual+dos+Tr%C3%AAs+Picos%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+          <li><button class="parada" type="button" aria-expanded="false" data-img="img/p/morangos.webp" data-alt="Plantação de morangos em estufa" data-cred="Plantação de morangos em Nova Friburgo · Foto: Vitorperrut555 (CC BY 4.0)"><span>Produtores e pousadas<small>frutas, mel, pães e broa</small></span></button><div class="det" hidden><img class="det-foto" src="img/p/morangos.webp" alt="Plantação de morangos em estufa" loading="lazy"><p>Na volta da trilha, frutas, verduras frescas, mel, pães e broa à venda pelo caminho, e pousadas para ficar.</p><p class="onde"><b>Onde fica:</b> Ao longo das estradas da região dos Três Picos.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Salinas%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+        </ol>
+                <p class="dica">Toque em uma parada para ver a foto, os detalhes e como chegar.</p>
+        <div class="botoes"><a class="botao" href="https://www.google.com/maps/search/?api=1&amp;query=Parque+Estadual+dos+Tr%C3%AAs+Picos+Nova+Friburgo" target="_blank" rel="noopener">Abrir no mapa</a></div>
+      </div>
+    </div></div>
+  </details>
+
+  <details class="circuito" id="flores">
+    <summary><span class="num">05</span><span><h2>Circuito das Flores</h2><span class="linha-curta">Campos, viveiros e estufas em Vargem Alta</span></span><span class="abrir"><span class="ver">Abrir circuito</span><span class="fechar">Fechar</span></span><img class="mini" src="img/c/flores.webp" alt="" loading="lazy"></summary>
+    <div class="mapa"><div class="mapa-folhas">
+      <figure class="folha folha-foto" style="margin:0"><div class="sem-foto-parada" aria-hidden="true"></div><img src="img/c/flores.webp" alt="Astromélias vermelhas e alaranjadas em plantação de flores" loading="lazy"><figcaption>Fazenda das Flores, Vargem Alta · Foto: Halley Pacheco de Oliveira (CC BY-SA 4.0)</figcaption></figure>
+      <div class="folha folha-texto">
+        <p>Vargem Alta vira um jardim de cores e perfumes. Entre campos floridos, viveiros e estufas, rosas e begônias dividem espaço com flores exóticas e tradicionais. Os produtores mostram como cultivam, e cada canto rende uma boa foto.</p>
+        <ol class="rota">
+          <li><button class="parada" type="button" aria-expanded="false" data-img="img/c/flores.webp" data-alt="Astromélias vermelhas em plantação" data-cred="Fazenda das Flores · Foto: Halley Pacheco de Oliveira (CC BY-SA 4.0)"><span>Vargem Alta<small>campos floridos</small></span></button><div class="det" hidden><img class="det-foto" src="img/c/flores.webp" alt="Astromélias vermelhas em plantação" loading="lazy"><p>Campos de flores a perder de vista, com rosas, begônias, astromélias e flores exóticas.</p><p class="onde"><b>Onde fica:</b> Vargem Alta, Nova Friburgo.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Vargem+Alta%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+          <li><button class="parada" type="button" aria-expanded="false" data-img="img/flores.webp" data-alt="Fileiras de flores coloridas dentro de uma estufa" data-cred="Acervo da Secretaria de Turismo"><span>Viveiros e estufas<small>flores de corte</small></span></button><div class="det" hidden><img class="det-foto" src="img/flores.webp" alt="Fileiras de flores coloridas dentro de uma estufa" loading="lazy"><p>Os produtores mostram como cultivam as flores de corte. Bom lugar para fotografar.</p><p class="onde"><b>Onde fica:</b> Vargem Alta, Nova Friburgo.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Vargem+Alta%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+        </ol>
+        <p class="dica">Toque em uma parada para ver a foto, os detalhes e como chegar.</p>
+        <div class="botoes"><a class="botao" href="https://www.google.com/maps/search/?api=1&amp;query=Vargem+Alta+Nova+Friburgo+RJ" target="_blank" rel="noopener">Abrir no mapa</a></div>
+      </div>
+    </div></div>
+  </details>
+
+  <details class="circuito" id="walking-tour">
+    <summary><span class="num">06</span><span><h2>Walking Tour</h2><span class="linha-curta">O Centro a pé: praças, prédios históricos e teleférico</span></span><span class="abrir"><span class="ver">Abrir circuito</span><span class="fechar">Fechar</span></span><img class="mini" src="img/c/walking-anchieta.webp" alt="" loading="lazy"></summary>
+    <div class="mapa"><div class="mapa-folhas">
+      <figure class="folha folha-foto" style="margin:0"><div class="sem-foto-parada" aria-hidden="true"></div><img src="img/c/walking-anchieta.webp" alt="Fachada amarela do Colégio Anchieta sob céu azul" loading="lazy"><figcaption>Colégio Anchieta · Foto: Halley Pacheco de Oliveira (CC BY-SA 3.0)</figcaption></figure>
+      <div class="folha folha-texto">
+        <p>A pé pelo Centro: ruas de paralelepípedo, arquitetura que conta a história da cidade, comércio, praças arborizadas, feira de artesanato, espaços culturais e o teleférico.</p>
+        <ol class="rota">
+          <li><button class="parada" type="button" aria-expanded="false" data-img="img/p/praca-gv.webp" data-alt="Alamedas arborizadas e chafariz da Praça Getúlio Vargas" data-cred="Foto: Leonardo Vellozo"><span>Praça Getúlio Vargas<small>Centro</small></span></button><div class="det" hidden><img class="det-foto" src="img/p/praca-gv.webp" alt="Alamedas arborizadas e chafariz da Praça Getúlio Vargas" loading="lazy"><p>A grande praça arborizada do Centro, ponto de partida do passeio a pé.</p><p class="onde"><b>Onde fica:</b> Centro de Nova Friburgo.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Pra%C3%A7a+Get%C3%BAlio+Vargas%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+          <li><button class="parada" type="button" aria-expanded="false" data-img="img/h/catedral.webp" data-alt="Catedral de São João Batista, de fachada branca e torre única" data-cred="Foto: Marinelson Almeida (CC BY 2.0)"><span>Catedral de São João Batista<small>Centro</small></span></button><div class="det" hidden><img class="det-foto" src="img/h/catedral.webp" alt="Catedral de São João Batista, de fachada branca e torre única" loading="lazy"><p>Dedicada a São João Batista, que dá nome à vila desde a fundação.</p><p class="onde"><b>Onde fica:</b> Centro de Nova Friburgo.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Catedral+S%C3%A3o+Jo%C3%A3o+Batista%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+          <li><button class="parada" type="button" aria-expanded="false"><span>Igreja Luterana<small>Centro</small></span></button><div class="det" hidden><p>Casa da primeira comunidade luterana do Brasil, fundada pelos imigrantes alemães em 1824. Conheça a história na página História.</p><p class="onde"><b>Onde fica:</b> Centro de Nova Friburgo.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Igreja+Evang%C3%A9lica+de+Confiss%C3%A3o+Luterana%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+          <li><button class="parada" type="button" aria-expanded="false" data-img="img/c/walking-anchieta.webp" data-alt="Fachada amarela do Colégio Anchieta" data-cred="Foto: Halley Pacheco de Oliveira (CC BY-SA 3.0)"><span>Colégio Anchieta<small>Centro</small></span></button><div class="det" hidden><img class="det-foto" src="img/c/walking-anchieta.webp" alt="Fachada amarela do Colégio Anchieta" loading="lazy"><p>Prédio histórico de escola jesuíta, um dos símbolos da cidade.</p><p class="onde"><b>Onde fica:</b> Centro de Nova Friburgo.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Col%C3%A9gio+Anchieta%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+          <li><button class="parada" type="button" aria-expanded="false" data-img="img/suspiro.webp" data-alt="Igreja da Praça do Suspiro com as cadeirinhas do teleférico" data-cred="Foto: João Luccas Oliveira"><span>Praça do Suspiro e teleférico<small>Centro</small></span></button><div class="det" hidden><img class="det-foto" src="img/suspiro.webp" alt="Igreja da Praça do Suspiro com as cadeirinhas do teleférico" loading="lazy"><p>Praça com a igrejinha e a estação do teleférico, que sobe o morro para uma vista da cidade.</p><p class="onde"><b>Onde fica:</b> Centro de Nova Friburgo.</p><a class="rota-link" href="https://www.google.com/maps/dir/?api=1&destination=Pra%C3%A7a+do+Suspiro%2C+Nova+Friburgo" target="_blank" rel="noopener">Como chegar</a></div></li>
+        </ol>
+        <p class="dica">Toque em uma parada para ver a foto, os detalhes e como chegar.</p>
+        <div class="botoes"><a class="botao" href="https://www.google.com/maps/search/?api=1&amp;query=Pra%C3%A7a+Get%C3%BAlio+Vargas+Nova+Friburgo+RJ" target="_blank" rel="noopener">Abrir no mapa</a><a class="botao claro" href="historia.html">Ler a história antes</a></div>
+      </div>
+    </div></div>
+  </details>
+
+  <details class="circuito" id="cervejeiro">
+    <summary><span class="num">07</span><span><h2>Tour Cervejeiro</h2><span class="linha-curta">Cervejarias artesanais, do lúpulo ao copo</span></span><span class="abrir"><span class="ver">Abrir circuito</span><span class="fechar">Fechar</span></span><img class="mini" src="img/c/cerveja.webp" alt="" loading="lazy"></summary>
+    <div class="mapa"><div class="mapa-folhas">
+      <figure class="folha folha-foto" style="margin:0"><div class="sem-foto-parada" aria-hidden="true"></div><img src="img/c/cerveja.webp" alt="Cerveja artesanal sendo servida em copo alto, com ramos de lúpulo na mesa" loading="lazy"><figcaption>Cerveja e lúpulo em Amparo · Foto: João Luccas Oliveira</figcaption></figure>
+      <div class="folha folha-texto">
+        <p>As cervejarias artesanais da cidade abrem a produção ao visitante: lúpulo e malte, tanques de fermentação e barris de carvalho, e a degustação de rótulos que vão dos mais leves aos mais encorpados.</p>
+        <p class="nota">Para saber quais cervejarias recebem visitas e em que horários, fale com o Centro de Atendimento ao Turista: (22) 2543-6307.</p>
+        <div class="botoes"><a class="botao" href="https://www.google.com/maps/search/?api=1&amp;query=cervejaria+artesanal+Nova+Friburgo+RJ" target="_blank" rel="noopener">Abrir no mapa</a></div>
+      </div>
+    </div></div>
+  </details>
+
+  <details class="circuito" id="vinho">
+    <summary><span class="num">08</span><span><h2>Rota do Vinho</h2><span class="linha-curta">Vinícolas das montanhas, da colheita à taça</span></span><span class="abrir"><span class="ver">Abrir circuito</span><span class="fechar">Fechar</span></span><span class="mini sem-foto" aria-hidden="true">Vinho</span></summary>
+    <div class="mapa"><div class="mapa-folhas">
+      <div class="folha folha-foto sem-foto" aria-hidden="true">Rota do<br>Vinho</div>
+      <div class="folha folha-texto">
+        <p>Nas vinícolas das montanhas, o visitante acompanha o caminho da uva: a colheita, a vinificação e o cuidado em cada etapa. No fim, a degustação de tintos e brancos produzidos na região.</p>
+        <p class="nota">Para saber quais vinícolas recebem visitas e em que horários, fale com o Centro de Atendimento ao Turista: (22) 2543-6307.</p>
+        <div class="botoes"><a class="botao" href="https://www.google.com/maps/search/?api=1&amp;query=vin%C3%ADcola+Nova+Friburgo+RJ" target="_blank" rel="noopener">Abrir no mapa</a></div>
+      </div>
+    </div></div>
+  </details>
+
+</div>
+
+<section class="perto" data-fx-fundo="#0F1714" data-fx-tinta="#F6F4EF" aria-labelledby="titulo-perto">
+  <div class="perto-cabeca">
+    <h2 id="titulo-perto" data-fx="subir">Natureza perto do Centro</h2>
+    <p data-fx="subir" data-fx-atraso="120">Pedras, picos e cachoeiras que não fazem parte de um circuito, mas ficam a poucos minutos da cidade.</p>
+  </div>
+  <div class="grade-perto">
+    <a class="lugar largo" data-fx="subir" href="https://www.google.com/maps/search/?api=1&amp;query=Pedra+do+C%C3%A3o+Sentado+Nova+Friburgo" target="_blank" rel="noopener"><img src="img/cao-sentado.webp" alt="Pedra do Cão Sentado acima da mata" loading="lazy"><div><h3>Pedra do Cão Sentado</h3><small>Foto: João Luccas Oliveira</small></div></a>
+    <a class="lugar" data-fx="subir" data-fx-atraso="80" href="https://www.google.com/maps/search/?api=1&amp;query=Pico+da+Caled%C3%B4nia+Nova+Friburgo" target="_blank" rel="noopener"><img src="img/caledonia.webp" alt="Topo do Pico da Caledônia" loading="lazy"><div><h3>Pico da Caledônia</h3><small>Foto: Fernando Lo Bianco</small></div></a>
+    <a class="lugar" data-fx="subir" data-fx-atraso="160" href="https://www.google.com/maps/search/?api=1&amp;query=Cachoeira+Feiticeira+Nova+Friburgo" target="_blank" rel="noopener"><img src="img/cascatinha.webp" alt="Cachoeira Feiticeira entre pedras e vegetação" loading="lazy"><div><h3>Cachoeira Feiticeira</h3><small>Cascatinha · Foto: João Luccas Oliveira</small></div></a>
+    <a class="lugar" data-fx="subir" href="https://www.google.com/maps/search/?api=1&amp;query=Pedra+do+Imperador+Nova+Friburgo" target="_blank" rel="noopener"><img src="img/serra-imperador.webp" alt="Silhueta da serra ao entardecer com a Pedra do Imperador" loading="lazy"><div><h3>Pedra do Imperador</h3><small>Foto: João Luccas Oliveira</small></div></a>
+    <a class="lugar texto" data-fx="subir" data-fx-atraso="80" href="https://www.google.com/maps/search/?api=1&amp;query=Parque+Municipal+Juarez+Frott%C3%A9+Nova+Friburgo" target="_blank" rel="noopener"><div><h3>Parque Municipal Juarez Frotté</h3><small>Abrir no mapa</small></div></a>
+    <a class="lugar texto" data-fx="subir" data-fx-atraso="160" href="https://www.google.com/maps/search/?api=1&amp;query=Cachoeira+da+Adutora+Nova+Friburgo" target="_blank" rel="noopener"><div><h3>Cachoeira da Adutora</h3><small>Abrir no mapa</small></div></a>
+    <a class="lugar" data-fx="subir" data-fx-atraso="240" href="https://www.google.com/maps/search/?api=1&amp;query=Nova+Friburgo+Country+Clube" target="_blank" rel="noopener"><img src="img/country.webp" alt="Pavilhão branco à beira do lago do Country Clube" loading="lazy"><div><h3>Nova Friburgo Country Clube</h3><small>Foto: Daniel Marcus</small></div></a>
+  </div>
+</section>
+
+<section class="uteis" id="informacoes" data-fx-fundo="#F6F4EF" data-fx-tinta="#17201F" aria-labelledby="titulo-uteis">
+  <div>
+    <p class="rotulo" style="color:var(--vermelho)">Antes de sair</p>
+    <h2 id="titulo-uteis" style="margin-top:14px">Informações importantes</h2>
+    <p class="credito" style="font-size:15px;margin-top:18px">Dados do Mapa Turístico oficial da Secretaria de Turismo. Instagram: <a href="https://www.instagram.com/turismonovafriburgo/" rel="noopener">@turismonovafriburgo</a> e <a href="https://www.instagram.com/novafriburgodestino/" rel="noopener">@novafriburgodestino</a>.</p>
+    <p class="aviso"><strong>Transporte coletivo turístico:</strong> o cadastro de acesso é obrigatório. Emita a senha em <a href="https://senhas.novafriburgo.rj.gov.br" rel="noopener">senhas.novafriburgo.rj.gov.br</a>.</p>
+  </div>
+  <div>
+    <h3>Distâncias</h3>
+    <table class="tabela"><tbody>
+      <tr><td>Teresópolis/RJ</td><td>76,6 km</td></tr>
+      <tr><td>Macaé/RJ</td><td>122 km</td></tr>
+      <tr><td>Petrópolis/RJ</td><td>133 km</td></tr>
+      <tr><td>Búzios · Cabo Frio/RJ</td><td>139 km</td></tr>
+      <tr><td>Rodoviária do Rio</td><td>142 km</td></tr>
+      <tr><td>Aeroporto Santos Dumont</td><td>142 km</td></tr>
+      <tr><td>Aeroporto Internacional (GIG)</td><td>147 km</td></tr>
+      <tr><td>Vitória/ES</td><td>406 km</td></tr>
+      <tr><td>Belo Horizonte/MG</td><td>441 km</td></tr>
+      <tr><td>São Paulo/SP</td><td>445 km</td></tr>
+    </tbody></table>
+  </div>
+  <div>
+    <h3>Telefones úteis</h3>
+    <table class="tabela"><tbody>
+      <tr><td>Centro de Atendimento ao Turista</td><td><a href="tel:+552225436307">(22) 2543-6307</a></td></tr>
+      <tr><td>Prefeitura de Nova Friburgo</td><td><a href="tel:+552225259100">(22) 2525-9100</a></td></tr>
+      <tr><td>Nova Friburgo Convention Bureau</td><td><a href="tel:+552232612044">(22) 3261-2044</a></td></tr>
+      <tr><td>Polícia Militar</td><td><a href="tel:+552225226681">(22) 2522-6681</a></td></tr>
+      <tr><td>Polícia Civil</td><td><a href="tel:+552225331967">(22) 2533-1967</a></td></tr>
+      <tr><td>Corpo de Bombeiros</td><td><a href="tel:+552225331574">(22) 2533-1574</a></td></tr>
+      <tr><td>Hospital Raul Sertã</td><td><a href="tel:+5522988640894">(22) 98864-0894</a></td></tr>
+    </tbody></table>
+  </div>
+</section>
+
+</main>
+
+<footer class="rodape">
+  <img src="img/logo-branco.png" alt="Prefeitura de Nova Friburgo · Secretaria de Turismo" width="917" height="223" loading="lazy">
+  <p style="margin:0">Secretaria Municipal de Turismo · Prefeitura de Nova Friburgo · <a href="https://novafriburgoturismo.com.br" rel="noopener">novafriburgoturismo.com.br</a></p>
+  <details>
+    <summary>Créditos das imagens</summary>
+    <ul>
+      <li>São Pedro da Serra, Amparo, Cerveja e lúpulo, Cão Sentado, Feiticeira, Pedra do Imperador: João Luccas Oliveira</li>
+      <li>Country Clube: Daniel Marcus · Pico da Caledônia: Fernando Lo Bianco</li>
+      <li>Casa Suíça: acervo da Secretaria de Turismo</li>
+      <li>Três Picos e Capacete: Maylle Lo Feudo, CC BY-SA 3.0, via Wikimedia Commons</li>
+      <li>Astromélias, Fazenda das Flores (Vargem Alta): Halley Pacheco de Oliveira, CC BY-SA 4.0, via Wikimedia Commons</li>
+      <li>Colégio Anchieta: Halley Pacheco de Oliveira, CC BY-SA 3.0, via Wikimedia Commons</li>
+    </ul>
+  </details>
+  <p style="margin:16px 0 0;font-size:13px">Textos baseados no Mapa Turístico oficial da Secretaria de Turismo. Horários e funcionamento podem mudar: confirme antes de sair.</p>
+</footer>
+
+<script src="sites-incriveis.js" defer></script>
+<script>
+/* Menu no celular */
+(function(){
+  var b=document.querySelector('.menu-toggle'), n=document.getElementById('nav');
+  b.addEventListener('click',function(){ var a=n.classList.toggle('aberto'); b.setAttribute('aria-expanded',a?'true':'false'); });
+})();
+/* Movimento-assinatura "Desdobrar o mapa": abrir um circuito pelo índice ou pelo endereço (#id) desdobra o cartão;
+   abrir um fecha os outros, para o mapa ocupar a atenção. */
+(function(){
+  var todos=[].slice.call(document.querySelectorAll('.circuito'));
+  function abrir(id){
+    var d=document.getElementById(id); if(!d||d.tagName!=='DETAILS') return;
+    d.open=true; setTimeout(function(){ d.scrollIntoView({behavior:'smooth',block:'start'}); },60);
+  }
+  todos.forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open){ todos.forEach(function(o){ if(o!==d) o.open=false; }); history.replaceState(null,'','#'+d.id); }
+    });
+  });
+  document.querySelectorAll('.indice a').forEach(function(a){
+    a.addEventListener('click',function(e){ e.preventDefault(); abrir(a.getAttribute('href').slice(1)); });
+  });
+  if(location.hash) abrir(location.hash.slice(1));
+})();
+/* Paradas: tocar numa parada troca a foto do circuito e abre os detalhes */
+(function(){
+  document.querySelectorAll('.circuito').forEach(function(c){
+    var fig=c.querySelector('.folha-foto'); if(!fig||fig.tagName!=='FIGURE') return;
+    var img=fig.querySelector('img'), cap=fig.querySelector('figcaption'), vazio=fig.querySelector('.sem-foto-parada');
+    var orig={src:img.getAttribute('src'),alt:img.alt,cap:cap.textContent};
+    var bts=[].slice.call(c.querySelectorAll('.parada'));
+    function mostrar(src,alt,txt,semImg,nome){
+      fig.classList.add('trocando');
+      setTimeout(function(){
+        fig.classList.toggle('sem-img',!!semImg);
+        if(semImg){ vazio.textContent=nome; cap.textContent='Ainda sem foto deste ponto'; }
+        else { img.src=src; img.alt=alt; cap.textContent=txt; }
+        fig.classList.remove('trocando');
+      },180);
+    }
+    bts.forEach(function(b){
+      b.addEventListener('click',function(){
+        var abrir=b.getAttribute('aria-expanded')!=='true';
+        bts.forEach(function(o){ o.setAttribute('aria-expanded','false'); o.nextElementSibling.hidden=true; });
+        if(abrir){
+          b.setAttribute('aria-expanded','true'); b.nextElementSibling.hidden=false;
+          var nome=b.querySelector('span').firstChild.textContent;
+          if(b.dataset.img) mostrar(b.dataset.img,b.dataset.alt,nome+' · '+b.dataset.cred,false);
+          else mostrar(null,null,null,true,nome);
+        } else mostrar(orig.src,orig.alt,orig.cap,false);
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
