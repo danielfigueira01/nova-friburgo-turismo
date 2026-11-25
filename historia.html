@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>História · Nova Friburgo, primeira Igreja Luterana da América Latina</title>
-<meta name="description" content="De 1818 aos dias de hoje: a colônia suíça, a vila de 1820, a chegada dos alemães em 1824 com a primeira comunidade luterana do Brasil, o trem na serra e a cidade de muitas fés.">
+<title>História · Nova Friburgo, a comunidade luterana mais antiga da América Latina</title>
+<meta name="description" content="De 1818 aos dias de hoje: a colônia suíça, a vila de 1820, a chegada dos alemães em 1824 com a primeira comunidade luterana do Brasil, o trem na serra, as dez nações e a cidade de muitas fés.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -45,6 +45,9 @@ h1,h2,h3{font-family:var(--display);font-weight:500;margin:0;line-height:1.02;le
 .abertura img{width:100%;border:10px solid var(--superficie);box-shadow:0 30px 60px -36px rgba(28,22,16,.55)}
 
 /* 2. 1818 – 1820 */
+.nacoes{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:30px 0 0;padding:0;list-style:none}
+.nacoes li{border-top:2px solid var(--musgo);padding:12px 0 0;font-family:var(--display);font-size:22px;line-height:1.15}
+@media (max-width:820px){.nacoes{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .capitulo{padding:clamp(72px,10vw,140px) var(--borda);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(32px,6vw,96px);align-items:start}
 .capitulo .texto p{max-width:58ch}
 .capitulo h2{font-size:clamp(38px,4.6vw,68px);margin:12px 0 22px}
@@ -192,7 +195,7 @@ h1,h2,h3{font-family:var(--display);font-weight:500;margin:0;line-height:1.02;le
     </div>
     <div class="pico-titulo">
       <p class="rotulo" data-fx-opacidade="0,1" data-fx-faixa="0.02,0.12">3 de maio de 1824</p>
-      <h2 id="titulo-1824" data-fx-opacidade="0.15,1" data-fx-y="30,0" data-fx-faixa="0.62,0.86">Primeira Igreja Luterana da América&nbsp;Latina.</h2>
+      <h2 id="titulo-1824" data-fx-opacidade="0.15,1" data-fx-y="30,0" data-fx-faixa="0.62,0.86">A comunidade luterana mais antiga da América&nbsp;Latina.</h2>
       <p data-fx-opacidade="0,1" data-fx-faixa="0.8,0.94">É a comunidade mais antiga da Igreja Evangélica de Confissão Luterana no Brasil. O primeiro ofício religioso foi triste: o sepultamento do filho do pastor Sauerbronn, no mesmo 3 de maio.</p>
       <p class="fonte" data-fx-opacidade="0,1" data-fx-faixa="0.86,0.96">Fontes: Prefeitura de Nova Friburgo (2022); IECLB, Carta à Nação Brasileira (2024).</p>
     </div>
@@ -212,6 +215,25 @@ h1,h2,h3{font-family:var(--display);font-weight:500;margin:0;line-height:1.02;le
       <div class="quadro cartao"><strong>1876</strong><p style="margin:12px 0 0">A estação do Rio Grande é inaugurada e impulsiona o povoado que viria a se chamar Riograndina.</p><p class="fonte" style="margin-top:10px">Fonte: História de Nova Friburgo, Janaína Botelho.</p></div>
     </div>
   </div>
+</section>
+
+<!-- 4b. DEZ NAÇÕES -->
+<section class="capitulo" aria-labelledby="titulo-nacoes">
+  <div class="texto">
+    <p class="ano" data-fx="esquerda">10</p>
+    <h2 id="titulo-nacoes" data-fx="subir">Uma cidade, dez nações</h2>
+    <p data-fx="subir" data-fx-atraso="100">Depois dos suíços e dos alemães, Nova Friburgo continuou recebendo gente de longe. A cidade se reconhece como terra formada por dez povos, e essa mistura está nas festas, nos sobrenomes e na mesa.</p>
+    <ul class="nacoes" data-fx="subir" data-fx-atraso="160">
+      <li>Suíços</li><li>Alemães</li><li>Portugueses</li><li>Africanos</li><li>Italianos</li><li>Libaneses</li><li>Japoneses</li><li>Espanhóis</li><li>Húngaros</li><li>Austríacos</li>
+    </ul>
+    <div class="marco" data-fx="subir" data-fx-atraso="220"><strong>Praça das Colônias</strong>Ao lado da Praça do Suspiro, cada colônia tem seu espaço. É ali que as comunidades celebram suas datas, com hasteamento de bandeiras, danças, música e culinária típica, como no Agosto Suíço e nas festas das colônias espanhola e austríaca, em outubro.</div>
+    <p class="nota-honesta" data-fx="subir" data-fx-atraso="260">As festas acontecem em datas marcadas. Antes de ir, confira a agenda da Secretaria de Turismo.</p>
+    <p class="fonte">Fontes: Prefeitura de Nova Friburgo; festival Sabores das Nações, Mês das Colônias (2013).</p>
+  </div>
+  <figure style="margin:0" data-fx="crescer">
+    <div class="vila"><img data-fx-paralaxe="0.06" src="img/suspiro.webp" alt="Praça do Suspiro, onde fica a Praça das Colônias, com a igrejinha e as cadeirinhas do teleférico" width="1800" height="1200" loading="lazy"></div>
+    <figcaption class="credito">Praça do Suspiro · Foto: João Luccas Oliveira</figcaption>
+  </figure>
 </section>
 
 <!-- 5. A CIDADE DE MUITAS FÉS -->
@@ -251,7 +273,8 @@ h1,h2,h3{font-family:var(--display);font-weight:500;margin:0;line-height:1.02;le
     <summary>Fontes e créditos</summary>
     <ul>
       <li>Decreto de 16/05/1818: Prefeitura de Nova Friburgo. Chegada em 15/11/1819 e presença anterior de indígenas, escravizados e roceiros: Revista Cordis, PUC-SP, n. 39, 2026. Vila em 03/01/1820: Revista GeoUERJ.</li>
-      <li>3/05/1824, pastor Sauerbronn e primeiro ofício: IECLB, Carta à Nação Brasileira, 2024. "Primeira Igreja Luterana da América Latina": Prefeitura de Nova Friburgo, 21/06/2022.</li>
+      <li>3/05/1824, pastor Sauerbronn e primeiro ofício: IECLB, Carta à Nação Brasileira, 2024. Comunidade luterana mais antiga da América Latina: IECLB; Prefeitura de Nova Friburgo, 21/06/2022.</li>
+      <li>Dez nações: Prefeitura de Nova Friburgo, página "A cidade"; lista do festival Sabores das Nações (Nova Friburgo Convention &amp; Visitors Bureau, Mês das Colônias, 2013). Praça das Colônias e festas: notícias da Prefeitura (Agosto Suíço; colônias espanhola e austríaca, out/2024).</li>
       <li>Estrada de Ferro Cantagalo (1873), primeira ferrovia de montanha do Brasil. Estação do Rio Grande (1876): Janaína Botelho, historianovafriburgo.com.br.</li>
       <li>Arautos do Evangelho: arautos.org; A Voz da Serra.</li>
       <li>Imagens: Isaak Schouman, 1819 (domínio público); Friedrich Salathé a partir de J. J. Steinmann, c. 1839 (domínio público); Henschel &amp; Benque, c. 1875, Biblioteca Nacional (domínio público); Catedral: Marinelson Almeida, CC BY 2.0; Colégio Anchieta: João Luccas Oliveira; Place de Nova-Friburgo: Martin Thurnherr, CC BY-SA 4.0. Imagens do Wikimedia Commons.</li>
